@@ -2,4 +2,10 @@
 
 Repository for dissertation work with Dr. Jacqueline Hughes-Oliver.
 
-## Chemmodlab Development Scripts
+## Chemmodlab Development
+
+Work from R Journal publication included
+
+## Accumulation Curve CI Analyses
+
+Coming soon!
