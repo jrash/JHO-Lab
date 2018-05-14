@@ -1,0 +1,126 @@
+==> devtools::check(cleanup = FALSE)
+
+Updating chemmodlab documentation
+Loading chemmodlab
+Writing NAMESPACE
+Writing CombineSplits.Rd
+Writing ModelTrain.Rd
+Writing chemmodlab.Rd
+Writing plot.chemmodlab.Rd
+Writing MakeModelDefaults.Rd
+Setting env vars ---------------------------------------------------------------
+CFLAGS  : -Wall -pedantic
+CXXFLAGS: -Wall -pedantic
+Building chemmodlab ------------------------------------------------------------
+"C:/PROGRA~1/R/R-33~1.2/bin/x64/R" --no-site-file --no-environ --no-save  \
+  --no-restore --quiet CMD build "C:\Users\jrash\Dropbox\JHO_lab\chemmodlab"  \
+  --no-resave-data --no-manual 
+
+* checking for file 'C:\Users\jrash\Dropbox\JHO_lab\chemmodlab/DESCRIPTION' ... OK
+* preparing 'chemmodlab':
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files
+* checking for empty or unneeded directories
+Removed empty directory 'chemmodlab/vignettes/chemmodlab_quickstart_files'
+* looking to see if a 'data/datalist' file should be added
+* building 'chemmodlab_0.0.0.9001.tar.gz'
+
+Setting env vars ---------------------------------------------------------------
+_R_CHECK_CRAN_INCOMING_ : FALSE
+_R_CHECK_FORCE_SUGGESTS_: FALSE
+Checking chemmodlab ------------------------------------------------------------
+"C:/PROGRA~1/R/R-33~1.2/bin/x64/R" --no-site-file --no-environ --no-save  \
+  --no-restore --quiet CMD check  \
+  "C:\Users\jrash\AppData\Local\Temp\RtmpqcVkKd/chemmodlab_0.0.0.9001.tar.gz"  \
+  --as-cran --timings --no-manual 
+
+* using log directory 'C:/Users/jrash/Dropbox/JHO_lab/chemmodlab.Rcheck'
+* using R version 3.3.2 (2016-10-31)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* using options '--no-manual --as-cran'
+* checking for file 'chemmodlab/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'chemmodlab' version '0.0.0.9001'
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking whether package 'chemmodlab' can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  'correlation.csv'
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  'aid364'
+Undocumented data sets:
+  'aid364'
+All user-level objects in a package should have documentation entries.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking files in 'vignettes' ... OK
+* checking examples ... OK
+Examples with CPU or elapsed time > 5s
+                user system elapsed
+plot.chemmodlab 8.02   0.03   12.55
+ModelTrain      7.92   0.01    8.15
+CombineSplits   7.70   0.05    8.66
+* DONE
+Status: 1 WARNING, 1 NOTE
+
+See
+  'C:/Users/jrash/Dropbox/JHO_lab/chemmodlab.Rcheck/00check.log'
+for details.
+
+
+checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  'aid364'
+Undocumented data sets:
+  'aid364'
+All user-level objects in a package should have documentation entries.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+
+checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  'correlation.csv'
+R CMD check results
+0 errors | 1 warning  | 1 note 
+Warning message:
+`cleanup` is deprecated 
+
+R CMD check succeeded

@@ -1,0 +1,131 @@
+---
+title: "QSARdata Analysis"
+author: "Jeremy Ash"
+date: "June 20, 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(QSARdata)
+library(caret)
+library(psych)
+library(chemmodlab)
+data(AquaticTox)
+data(MeltingPoint)
+```
+
+# Recreating Krstajic et al. 2014
+
+I am attempting to recreate the analysis in "Cross-validation pitfalls when selecting and
+assessing regression and classification models" (Krstajic et al. 2014).  THis paper has 70 citations and introduces methods for repeated cross validation (e.g., nested CV where another CV loop is used to perform model tunning within each outer CV iteration).  The QSARdata package is used to perform the analysis, and the methods used for filtering descriptors are described well enough that I can recreate them.
+
+## Analysis of the AquaticTox data set
+
+"AquaticTox contains negative log of toxic activity for 322 compounds. It was described and compiled by He and Jurs ... There are 220 MOE 2D descriptors for each compound. However, during pre-processing we removed 30 descriptors with near zero variation and 6 descriptors that were linear combinations of others, leaving 184 descriptors for model building."
+
+```{r}
+dim(AquaticTox_moe2D)
+
+rownames(AquaticTox_moe2D) <- make.unique(as.character(AquaticTox_moe2D[, 1]))
+AquaticTox_moe2D <- AquaticTox_moe2D[, -1]
+length(nearZeroVar(AquaticTox_moe2D))
+AquaticTox_moe2D <- AquaticTox_moe2D[-nearZeroVar(AquaticTox_moe2D)]
+length(findLinearCombos(AquaticTox_moe2D)$remove)
+AquaticTox_moe2D <- AquaticTox_moe2D[-findLinearCombos(AquaticTox_moe2D)$remove]
+dim(AquaticTox_moe2D)
+
+AquaticTox_moe2D <- cbind(AquaticTox_Outcome$Activity, AquaticTox_moe2D)
+head(AquaticTox_moe2D[, 1:3])
+aq.process <- AquaticTox_moe2D
+```
+
+I set the ridge regression lambda value and ncomp to the optimal values found by a 
+cross validated grid search in the paper.  I also used 10 fold cross validation as they did, and 5 repeats (they used 50).  Folds were also assigned at random for one of their methods.  Since their CV protocol matches ours closely, their results should match ours. However, neither ridge regression nor PLS have performance that is as good as what was found by the paper. We have effectively the same performance with Lasso.  
+
+They said that they used the sum of squared residuals for their Cross Validation loss function.  I guess this means CV SSE, I used RMSE and converted to SSE for comparison.
+
+```{r AQ_tox, cache = T, results="hide", warning=F}
+user.params <- MakeModelDefaults(nrow(aq.process), ncol(aq.process) - 1, F, 10)
+user.params$Ridge$lambda <- .05325
+user.params$PLS$ncomp <- 13
+
+cml.tune <- ModelTrain(aq.process, ids = F, user.params = user.params,
+                       models = c("Ridge", "Lasso", "RF", 
+                                  "Tree", "KNN", "NNet",
+                                  "SVM", "PLS", "ENet"),
+                       nsplits = 5, seed.in = 1:5)
+
+cml.tune$params$Ridge
+cml.tune$params$PLS
+
+CombineSplits(cml.tune, metric = "RMSE")
+```
+
+
+
+```{r}
+# pretty sure that the performance measure they report in table 3 is RMSE
+(.59^2) * 322
+```
+The PLS model fit with caret instead
+
+```{r}
+colnames(aq.process)[1] <- "activity"
+plsGrid <-  expand.grid(ncomp = c(1, 3, 13)) 
+
+ctrl <- trainControl(method = "cv", number = 10, repeats = 3)
+
+usingMC <-  train(activity ~ .,
+                  data = aq.process,
+                  method = "pls", 
+                  trControl = ctrl,
+                  tuneGrid = plsGrid)
+
+usingMC
+```
+
+
+## Analysis of the AquaticTox data set
+
+```{r}
+head(MP_Descriptors[1:6])
+
+length(nearZeroVar(MP_Descriptors))
+MP_Descriptors <- MP_Descriptors[-nearZeroVar(MP_Descriptors)]
+dim(MP_Descriptors)
+length(findLinearCombos(MP_Descriptors)$remove)
+MP_Descriptors <- MP_Descriptors[-findLinearCombos(MP_Descriptors)$remove]
+dim(MP_Descriptors)
+
+MP_Descriptors <- cbind(MP_Outcome, MP_Descriptors)
+MP.descriptors <- MP_Descriptors
+
+user.params <- MakeModelDefaults(nrow(MP.descriptors), ncol(MP.descriptors) - 1, F, 10)
+user.params$Ridge$lambda <- .0549
+user.params$PLS$ncomp <- 47
+
+cml.tune$params$Ridge
+cml.tune$params$PLS
+```
+
+
+The ridge performance is comparable, PLS is still a bit worse.
+
+```{r MP_tox, cache = T, results="hide", warning=F}
+cml.tune <- ModelTrain(MP_Descriptors, ids = F, user.params = user.params,
+                       models = c("Ridge", "Lasso", "RF", 
+                                  "PLS"),
+                       nsplits = 3, seed.in = 1:3)
+
+cml.tune$params$Ridge
+cml.tune$params$PLS
+
+CombineSplits(cml.tune, metric = "RMSE")
+```
+
+
+## Future Directions
+
+Perhaps we should generate boxplots for the sum of squared residuals for each CV split the way they did.  I could modify the performance function in Chemmodlab so that the data necessary is output.  I have been wanting to compute a SE for the performance measures anyways.
+

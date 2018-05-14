@@ -1,0 +1,627 @@
+==> devtools::check()
+
+Updating chemmodlab documentation
+Loading chemmodlab
+Writing NAMESPACE
+Writing CombineSplits.Rd
+Writing ModelTrain.Rd
+Writing chemmodlab.Rd
+Writing plot.chemmodlab.Rd
+Writing MakeModelDefaults.Rd
+Setting env vars ---------------------------------------------------------------
+CFLAGS  : -Wall -pedantic
+CXXFLAGS: -Wall -pedantic
+Building chemmodlab ------------------------------------------------------------
+"C:/PROGRA~1/R/R-33~1.2/bin/x64/R" --no-site-file --no-environ --no-save  \
+  --no-restore --quiet CMD build "C:\Users\jrash\Dropbox\JHO_lab\chemmodlab"  \
+  --no-resave-data --no-manual 
+
+* checking for file 'C:\Users\jrash\Dropbox\JHO_lab\chemmodlab/DESCRIPTION' ... OK
+* preparing 'chemmodlab':
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files
+* checking for empty or unneeded directories
+* looking to see if a 'data/datalist' file should be added
+* building 'chemmodlab_0.0.0.9001.tar.gz'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/descriptors_64539d1b46eae6a71288e3a0b76219c0.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/descriptors_64539d1b46eae6a71288e3a0b76219c0.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/descriptors_64539d1b46eae6a71288e3a0b76219c0.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model_dabaedd28b29d227492a21896cbaa039.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/response_43fe0cf6dfa260f684c911373af8ef0a.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/unnamed-chunk-1_a5a2ac36d8c3b9b21208d86be9e38c70.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/unnamed-chunk-1_a5a2ac36d8c3b9b21208d86be9e38c70.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/html/unnamed-chunk-1_a5a2ac36d8c3b9b21208d86be9e38c70.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/descriptors_517cf779a130e5d298a397a2563eb937.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/descriptors_517cf779a130e5d298a397a2563eb937.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/descriptors_517cf779a130e5d298a397a2563eb937.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_664a9fd3f30e75aa59eff6a8d24895cb.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdx'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/response_21f583d521ef3b13aa11fe380b7ced4e.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.RData'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.rdb'
+Warning in utils::tar(filepath, pkgname, compression = "gzip", compression_level = 9L,  :
+  storing paths of more than 100 bytes is not portable:
+  'chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.rdx'
+
+Setting env vars ---------------------------------------------------------------
+_R_CHECK_CRAN_INCOMING_ : FALSE
+_R_CHECK_FORCE_SUGGESTS_: FALSE
+Checking chemmodlab ------------------------------------------------------------
+"C:/PROGRA~1/R/R-33~1.2/bin/x64/R" --no-site-file --no-environ --no-save  \
+  --no-restore --quiet CMD check  \
+  "C:\Users\jrash\AppData\Local\Temp\RtmpUnPnGZ/chemmodlab_0.0.0.9001.tar.gz"  \
+  --as-cran --timings --no-manual 
+
+* using log directory 'C:/Users/jrash/Dropbox/JHO_lab/chemmodlab.Rcheck'
+* using R version 3.3.2 (2016-10-31)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* using options '--no-manual --as-cran'
+* checking for file 'chemmodlab/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'chemmodlab' version '0.0.0.9001'
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... WARNING
+Found the following files with non-portable file names:
+  vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.RData
+  vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdb
+  vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdx
+  vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.RData
+  vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdb
+  vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdx
+  vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.RData
+  vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdb
+  vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdx
+  vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.RData
+  vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.rdb
+  vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.rdx
+  vignettes/chemmodlab_quickstart_cache/html/fit model_dabaedd28b29d227492a21896cbaa039.RData
+  vignettes/chemmodlab_quickstart_cache/html/fit model_dabaedd28b29d227492a21896cbaa039.rdb
+  vignettes/chemmodlab_quickstart_cache/html/fit model_dabaedd28b29d227492a21896cbaa039.rdx
+  vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.RData
+  vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.rdb
+  vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.rdx
+  vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.RData
+  vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.rdx
+  vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.RData
+  vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.rdx
+  vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.RData
+  vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.rdx
+  vignettes/chemmodlab_quickstart_cache/latex/fit model code_664a9fd3f30e75aa59eff6a8d24895cb.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.RData
+  vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.rdx
+  vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.RData
+  vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.rdx
+  vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.RData
+  vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdb
+  vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdx
+  vignettes/chemmodlab_quickstart_files/figure-html/accumulation curves-1.png
+  vignettes/chemmodlab_quickstart_files/figure-html/accumulation curves-2.png
+  vignettes/chemmodlab_quickstart_files/figure-html/accumulation curves-3.png
+  vignettes/chemmodlab_quickstart_files/figure-html/accumulation curves-4.png
+  vignettes/chemmodlab_quickstart_files/figure-html/combine splits IE-1.png
+  vignettes/chemmodlab_quickstart_files/figure-html/combine splits others-1.png
+  vignettes/chemmodlab_quickstart_files/figure-html/combine splits others-2.png
+  vignettes/chemmodlab_quickstart_files/figure-html/combine splits others-3.png
+  vignettes/chemmodlab_quickstart_files/figure-html/combine splits others-4.png
+  vignettes/chemmodlab_quickstart_files/figure-latex/accumulation curves-1.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/accumulation curves-2.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/accumulation curves-3.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/accumulation curves-4.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/combine splits IE-1.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/combine splits others-1.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/combine splits others-2.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/combine splits others-3.pdf
+  vignettes/chemmodlab_quickstart_files/figure-latex/combine splits others-4.pdf
+These are not fully portable file names.
+See section 'Package structure' in the 'Writing R Extensions' manual.
+Found the following non-portable file paths:
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/descriptors_64539d1b46eae6a71288e3a0b76219c0.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/descriptors_64539d1b46eae6a71288e3a0b76219c0.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/descriptors_64539d1b46eae6a71288e3a0b76219c0.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model code_322be11fe3af9a311142220ceaac8bb4.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/fit model_dabaedd28b29d227492a21896cbaa039.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/install package_f6d9e917295b9be1cc816ffa7f77f7ab.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/response_43fe0cf6dfa260f684c911373af8ef0a.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/unnamed-chunk-1_a5a2ac36d8c3b9b21208d86be9e38c70.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/unnamed-chunk-1_a5a2ac36d8c3b9b21208d86be9e38c70.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/html/unnamed-chunk-1_a5a2ac36d8c3b9b21208d86be9e38c70.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/accumulation curves_3b4c87792374b1396c83c9e18a3cba69.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits IE_efb6877fbaac0f4c7f9befc6d010bbdf.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/combine splits others_9a695cf4082c7529b480666c1917e7b4.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/descriptors_517cf779a130e5d298a397a2563eb937.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/descriptors_517cf779a130e5d298a397a2563eb937.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/descriptors_517cf779a130e5d298a397a2563eb937.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_664a9fd3f30e75aa59eff6a8d24895cb.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model code_7f31b31eea296c0f7af66d7b5e6a1831.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/fit model_7bd2a07a13cc828f5e16f038600d443d.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/response_21f583d521ef3b13aa11fe380b7ced4e.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.rdx
+
+Tarballs are only required to store paths of up to 100 bytes and cannot
+store those of more than 256 bytes, with restrictions including to 100
+bytes for the final component.
+See section 'Package structure' in the 'Writing R Extensions' manual.
+* checking whether package 'chemmodlab' can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+Non-standard files/directories found at top level:
+  'index.html' 'index.rmd' 'misc' 'utilities'
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... WARNING
+plot:
+  function(x, ...)
+plot.chemmodlab:
+  function(cml.result, max.select, splits, meths)
+
+See section 'Generic functions and methods' in the 'Writing R
+Extensions' manual.
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+HitMap: warning in rank(-y, ties = "rand"): partial argument match of
+  'ties' to 'ties.method'
+BackAssess: no visible global function definition for 'cor'
+BackEnet: no visible binding for global variable 'var'
+BackEnet: no visible global function definition for 'predict'
+BackLars: no visible global function definition for 'predict'
+BackNnet: no visible binding for global variable 'var'
+BackNnet: no visible global function definition for 'predict'
+BackPcr: no visible binding for global variable 'var'
+BackPlsLdaNew: no visible binding for global variable 'var'
+BackPlsR: no visible binding for global variable 'var'
+BackPredict: no visible global function definition for 'read.table'
+BackPredict: no visible global function definition for 'read.in.data'
+BackPredict: no visible global function definition for 'write.table'
+BackRf: no visible global function definition for 'predict'
+BackRidge: no visible binding for global variable 'var'
+BackRpart: no visible global function definition for 'predict'
+BackSvm: no visible binding for global variable 'var'
+BackSvm: no visible global function definition for 'predict'
+BackTree: no visible global function definition for 'predict'
+CombineSplits: no visible global function definition for 'cor'
+ContCurve: no visible global function definition for 'palette'
+ContCurve: no visible global function definition for 'rainbow'
+ContCurve: no visible global function definition for 'layout'
+ContCurve: no visible global function definition for 'par'
+ContCurve: no visible global function definition for 'plot'
+ContCurve: no visible global function definition for 'mtext'
+ContCurve: no visible global function definition for 'lines'
+ContCurve: no visible global function definition for 'legend'
+HitCurve: no visible global function definition for 'palette'
+HitCurve: no visible global function definition for 'rainbow'
+HitCurve: no visible global function definition for 'layout'
+HitCurve: no visible global function definition for 'par'
+HitCurve: no visible global function definition for 'plot'
+HitCurve: no visible global function definition for 'mtext'
+HitCurve: no visible global function definition for 'lines'
+HitCurve: no visible global function definition for 'points'
+HitCurve: no visible global function definition for 'legend'
+HitMap: no visible global function definition for 'rgb'
+HitMap: no visible global function definition for 'heatmap'
+HitMap: no visible global function definition for 'dist'
+HitMap: no visible global function definition for 'as.dendrogram'
+HitMap: no visible global function definition for 'hclust'
+HitMapPages: no visible global function definition for 'heatmap'
+HitMapPages: no visible global function definition for
+  'order.dendrogram'
+McsPlot: no visible global function definition for 'par'
+McsPlot: no visible global function definition for 'plot'
+McsPlot: no visible global function definition for 'axis'
+McsPlot: no visible global function definition for 'image'
+McsPlot: no visible global function definition for 'abline'
+McsPlot: no visible global function definition for 'mtext'
+McsPlot: no visible global function definition for 'legend'
+McsPlot: no visible global function definition for 'box'
+ModelTrain: no visible global function definition for 'is'
+ModelTrain: no visible global function definition for 'lsf.str'
+ModelTrain: no visible binding for global variable 'nperm'
+PcrZG: no visible binding for '<<-' assignment to 'full.svd'
+PcrZG: no visible binding for global variable 'full.svd'
+PcrZG: no visible binding for global variable 'var'
+PcrZG: no visible global function definition for 'qt'
+PredEnet: no visible global function definition for 'enet'
+PredEnet: no visible global function definition for 'predict'
+PredKnn: no visible global function definition for 'knn'
+PredKnnflex: no visible global function definition for 'knn.dist'
+PredKnnflex: no visible global function definition for 'knn.predict'
+PredLars: no visible global function definition for 'lars'
+PredLars: no visible global function definition for 'predict'
+PredNnet: no visible global function definition for 'nnet'
+PredNnet: no visible global function definition for 'predict'
+PredRf: no visible global function definition for 'randomForest'
+PredRf: no visible global function definition for 'predict'
+PredRidge: no visible global function definition for 'lm.ridge'
+PredRpartCml: no visible global function definition for 'rpart'
+PredRpartCml: no visible global function definition for 'predict'
+PredSvm: no visible global function definition for 'svm'
+PredSvm: no visible global function definition for 'predict'
+PredTree: no visible global function definition for 'tree'
+PredTree: no visible global function definition for 'predict'
+ReadInData: no visible binding for global variable 'var'
+SimPlsLdaNew: no visible global function definition for 'predict'
+SplitAnova: no visible global function definition for 'glm'
+SplitAnova: no visible global function definition for 'df'
+SplitAnova: no visible global function definition for 'pdf'
+SplitAnova: no visible global function definition for 'anova'
+SplitAnova: no visible global function definition for 'fitted.values'
+SplitAnova: no visible global function definition for 'aov'
+SplitAnova: no visible global function definition for 'TukeyHSD'
+SplitAnova: no visible global function definition for 'dev.off'
+ZhuGhodsi: no visible global function definition for 'var'
+plot.chemmodlab: no visible global function definition for 'par'
+plotBB: no visible global function definition for 'read.csv'
+plotBB: no visible global function definition for 'pdf'
+plotBB: no visible global function definition for 'dev.off'
+Undefined global functions or variables:
+  TukeyHSD abline anova aov as.dendrogram axis box cor dev.off df dist
+  enet fitted.values full.svd glm hclust heatmap image is knn knn.dist
+  knn.predict lars layout legend lines lm.ridge lsf.str mtext nnet
+  nperm order.dendrogram palette par pdf plot points predict qt rainbow
+  randomForest read.csv read.in.data read.table rgb rpart svm tree var
+  write.table
+Consider adding
+  importFrom("grDevices", "dev.off", "palette", "pdf", "rainbow", "rgb")
+  importFrom("graphics", "abline", "axis", "box", "image", "layout",
+             "legend", "lines", "mtext", "par", "plot", "points")
+  importFrom("methods", "is")
+  importFrom("stats", "TukeyHSD", "anova", "aov", "as.dendrogram", "cor",
+             "df", "dist", "fitted.values", "glm", "hclust", "heatmap",
+             "order.dendrogram", "predict", "qt", "var")
+  importFrom("utils", "lsf.str", "read.csv", "read.table", "write.table")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+* checking Rd files ... WARNING
+checkRd: (7) plot.chemmodlab.Rd:42: Tag \eqn is invalid in a \code block
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'ModelTrain.Rd':
+  'ModelAssess'
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  'aid364'
+Undocumented data sets:
+  'aid364'
+All user-level objects in a package should have documentation entries.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+* checking for code/documentation mismatches ... WARNING
+Functions or methods with usage in documentation object 'hello' but not in code:
+  hello
+
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'CombineSplits'
+  '...'
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking files in 'vignettes' ... OK
+* checking examples ... ERROR
+Running examples in 'chemmodlab-Ex.R' failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: CombineSplits
+> ### Title: ANOVA and multiple comparisons for chemmodlab objects
+> ### Aliases: CombineSplits
+> 
+> ### ** Examples
+> 
+> # A data set with  binary response and multiple descriptor sets
+> cml <- ModelTrain(aid364, ids = T, xcol.lengths = c(24, 147), 
++                   des.names = c("BurdenNumbers", "Pharmacophores"))
+Error in is(ids, "logical") : T used instead of TRUE
+Calls: ModelTrain -> is
+Execution halted
+* DONE
+Status: 1 ERROR, 7 WARNINGs, 2 NOTEs
+
+See
+  'C:/Users/jrash/Dropbox/JHO_lab/chemmodlab.Rcheck/00check.log'
+for details.
+
+checking examples ... ERROR
+Running examples in 'chemmodlab-Ex.R' failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: CombineSplits
+> ### Title: ANOVA and multiple comparisons for chemmodlab objects
+> ### Aliases: CombineSplits
+> 
+> ### ** Examples
+> 
+> # A data set with  binary response and multiple descriptor sets
+> cml <- ModelTrain(aid364, ids = T, xcol.lengths = c(24, 147), 
++                   des.names = c("BurdenNumbers", "Pharmacophores"))
+Error in is(ids, "logical") : T used instead of TRUE
+Calls: ModelTrain -> is
+Execution halted
+
+checking for portable file names ... WARNING
+Found the following files with non-portable file names:
+  vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.RData
+  vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdb
+  vignettes/chemmodlab_quickstart_cache/html/accumulation curves_68794b7a45214ca73803bdc4aaa9ec70.rdx
+  vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.RData
+  vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdb
+  vignettes/chemmodlab_quickstart_cache/html/combine splits IE_a64b7b249ce1cd6a7ecc53579c32f9bd.rdx
+  vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.RData
+  vignettes/chemmodlab_quickstart_cache/html/combine splits others_95fe5d4ccce4cf50ba2aaf1a70376825.rdb
+... 94 lines ...
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/install package_e320fbe9712d47addf0a8980cb1179a4.rdx
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/response_21f583d521ef3b13aa11fe380b7ced4e.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.RData
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.rdb
+  chemmodlab/vignettes/chemmodlab_quickstart_cache/latex/unnamed-chunk-1_5136616b549e9f2c29d71d0665d3c0df.rdx
+
+Tarballs are only required to store paths of up to 100 bytes and cannot
+store those of more than 256 bytes, with restrictions including to 100
+bytes for the final component.
+See section 'Package structure' in the 'Writing R Extensions' manual.
+
+checking S3 generic/method consistency ... WARNING
+plot:
+  function(x, ...)
+plot.chemmodlab:
+  function(cml.result, max.select, splits, meths)
+
+See section 'Generic functions and methods' in the 'Writing R
+Extensions' manual.
+
+checking Rd files ... WARNING
+checkRd: (7) plot.chemmodlab.Rd:42: Tag \eqn is invalid in a \code block
+
+checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'ModelTrain.Rd':
+  'ModelAssess'
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+
+checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  'aid364'
+Undocumented data sets:
+  'aid364'
+All user-level objects in a package should have documentation entries.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+
+checking for code/documentation mismatches ... WARNING
+Functions or methods with usage in documentation object 'hello' but not in code:
+  hello
+
+
+checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'CombineSplits'
+  '...'
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+
+checking top-level files ... NOTE
+Non-standard files/directories found at top level:
+  'index.html' 'index.rmd' 'misc' 'utilities'
+
+checking R code for possible problems ... NOTE
+HitMap: warning in rank(-y, ties = "rand"): partial argument match of
+  'ties' to 'ties.method'
+BackAssess: no visible global function definitioR CMD check results
+1 error  | 7 warnings | 2 notes
+n for 'cor'
+BackEnet: no visible binding for global variable 'var'
+BackEnet: no visible global function definition for 'predict'
+BackLars: no visible global function definition for 'predict'
+BackNnet: no visible binding for global variable 'var'
+BackNnet: no visible global function definition for 'predict'
+BackPcr: no visible binding for global variable 'var'
+... 93 lines ...
+Consider adding
+  importFrom("grDevices", "dev.off", "palette", "pdf", "rainbow", "rgb")
+  importFrom("graphics", "abline", "axis", "box", "image", "layout",
+             "legend", "lines", "mtext", "par", "plot", "points")
+  importFrom("methods", "is")
+  importFrom("stats", "TukeyHSD", "anova", "aov", "as.dendrogram", "cor",
+             "df", "dist", "fitted.values", "glm", "hclust", "heatmap",
+             "order.dendrogram", "predict", "qt", "var")
+  importFrom("utils", "lsf.str", "read.csv", "read.table", "write.table")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+
+R CMD check succeeded

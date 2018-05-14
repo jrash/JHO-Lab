@@ -1,0 +1,51 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[James et~al.(2013)James, Witten, Hastie, and Tibshirani]{James2013}
+G.~James, D.~Witten, T.~Hastie, and R.~Tibshirani.
+\newblock \emph{{An Introduction to Statistical Learning}}, volume 103 of
+  \emph{Springer Texts in Statistics}.
+\newblock Springer New York, New York, NY, 2013.
+\newblock ISBN 978-1-4614-7137-0.
+\newblock \doi{10.1007/978-1-4614-7138-7}.
+\newblock URL \url{http://books.google.com/books?id=9tv0taI8l6YC
+  http://link.springer.com/10.1007/978-1-4614-7138-7}.
+
+\bibitem[Kim(2009)]{Kim2009}
+J.-H. Kim.
+\newblock {Estimating classification error rate: Repeated cross-validation,
+  repeated hold-out and bootstrap}.
+\newblock \emph{Computational Statistics {\&} Data Analysis}, 53\penalty0
+  (11):\penalty0 3735--3745, sep 2009.
+\newblock ISSN 01679473.
+\newblock \doi{10.1016/j.csda.2009.04.009}.
+\newblock URL \url{www.elsevier.com/locate/csda
+  http://linkinghub.elsevier.com/retrieve/pii/S0167947309001601}.
+
+\bibitem[Molinaro et~al.(2005)Molinaro, Simon, and Pfeiffer]{Molinaro2005}
+A.~M. Molinaro, R.~Simon, and R.~M. Pfeiffer.
+\newblock {Prediction error estimation: a comparison of resampling methods}.
+\newblock \emph{Bioinformatics}, 21\penalty0 (15):\penalty0 3301--3307, aug
+  2005.
+\newblock ISSN 1367-4803.
+\newblock \doi{10.1093/bioinformatics/bti499}.
+\newblock URL
+  \url{https://academic.oup.com/bioinformatics/article-lookup/doi/10.1093/bioinformatics/bti499}.
+
+\bibitem[Shen et~al.(2011)Shen, Welch, and Hughes-Oliver]{Shen2011}
+H.~Shen, W.~J. Welch, and J.~M. Hughes-Oliver.
+\newblock {Efficient, adaptive cross-validation for tuning and comparing
+  models, with application to drug discovery}.
+\newblock \emph{The Annals of Applied Statistics}, 5\penalty0 (4):\penalty0
+  2668--2687, dec 2011.
+\newblock ISSN 1932-6157.
+\newblock \doi{10.1214/11-AOAS491}.
+\newblock URL
+  \url{http://projecteuclid.org/euclid.aoas/1324399611{\%}5Cnpapers2://publication/uuid/6261B359-C0A2-4869-9546-989F31B76954
+  http://projecteuclid.org/euclid.aoas/1324399611}.
+
+\end{thebibliography}

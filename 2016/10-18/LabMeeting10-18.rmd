@@ -1,0 +1,215 @@
+---
+title: "ChemModLab Full Dataset Test and New Functions"
+author: "Jeremy Ash"
+date: "October 18, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, root.dir = "C:/Users/Vestige/Google Drive/ChemModLab/", fig.height=8, fig.width=8)
+library(gplots)
+
+options(repos=c(CRAN="http://archive.linux.duke.edu/cran/"))
+```
+
+## Preparing Data: All descriptor sets
+
+```{r load data, echo=T, cache=TRUE}
+yfilein <- read.csv("AID_364.csv")
+# xfilein <- read.csv("BurdenNumbers.csv")
+# data <- cbind(yfilein, xfilein[,-1])
+# head(data[1:6])
+
+data <- yfilein
+desc_lengths <- c()
+for(desc in c("BurdenNumbers.csv","Pharmacophores.csv","AtomPairs.csv",
+              "FragmentPairs.csv","Carharts.csv")){
+  d <- read.csv(desc)[-1]
+  data <- cbind(data, d)
+  desc_lengths <- c(desc_lengths, ncol(d))
+}
+desc_idx <- list()
+desc_idx[[1]] <- 1:desc_lengths[1]
+for(i in 2:length(desc_lengths)){
+  l1 <- desc_idx[[i-1]][length(desc_idx[[i-1]])]
+  l2 <- desc_lengths[i]
+  desc_idx[[i]] <- (l1+1):(l1+l2)
+}
+for(i in 1:length(desc_idx)){
+  desc_idx[[i]] <- desc_idx[[i]] + 2
+}
+
+head(data[1:6])
+ncol(data)
+
+source("../background_test2.R")
+
+# bb <- ModelTrain(data, idcol=1, 
+#                  models = c("NNet","PCR","ENet","PLS","Ridge","LARs",
+#                             "PLSLDA","RPart","Tree","SVM","KNN","Forest"),
+#                  xcols = desc_idx, nsplits = 3, des.names =
+#                    c("BurdenNumbers","Pharmacophores","AtomPairs","FragmentPairs","Carharts"),     
+#                  nfolds=10, seed.in=c(11111,22222,33333))
+
+load("fullrun.RData")
+results <- bb
+
+format(object.size(results), units="Mb")
+
+```
+
+## Old Code with 2008 packages
+
+Installing the most current packages at the time the original ChemModLab output was generated.
+
+```{r Plot Results, cache=T, echo=F}
+
+plot.singlerun(bb,1,1)
+
+```
+
+```{r Plot Results2, cache=T, echo=F}
+
+CombineSplits(bb)
+
+```
+
+## Data: Burden Number Descriptors and Active/Inactive Response
+
+```{r compare pred, echo=T, cache=TRUE, fig.height=4, fig.width=4}
+pred1 <- read.csv("../../ChemModLab_old/Split1/pred (2014_07_23 17_49_31 UTC).csv"
+                  , skip = 1, row.names = 1)
+pred2 <- read.csv("../../ChemModLab_old/Split2/pred (2014_07_23 17_49_31 UTC).csv"
+                  , skip = 1, row.names = 1)
+pred3 <- read.csv("../../ChemModLab_old/Split3/pred (2014_07_23 17_49_31 UTC).csv"
+                  , skip = 1, row.names = 1)
+
+pred_old <- list()
+pred_old[[1]] <- list(pred1[,2:13],pred1[,grep("\\.1",colnames(pred1))],
+                      pred1[,grep("\\.2",colnames(pred1))],pred1[,grep("\\.3",colnames(pred1))],
+                      pred1[,grep("\\.4",colnames(pred1))])
+pred_old[[2]] <- list(pred2[,2:13],pred2[,grep("\\.1",colnames(pred2))],
+                      pred2[,grep("\\.2",colnames(pred2))],pred2[,grep("\\.3",colnames(pred2))],
+                      pred2[,grep("\\.4",colnames(pred2))])
+pred_old[[3]] <- list(pred3[,2:13],pred3[,grep("\\.1",colnames(pred3))],
+                      pred3[,grep("\\.2",colnames(pred3))],pred3[,grep("\\.3",colnames(pred3))],
+                      pred3[,grep("\\.4",colnames(pred3))])
+
+for(i in 1:3){
+  for(j in 1:5){
+    colnames(pred_old[[i]][[j]]) <- sub("\\.1", "",colnames(pred_old[[i]][[j]]))
+    colnames(pred_old[[i]][[j]]) <- sub("\\.2", "",colnames(pred_old[[i]][[j]]))
+    colnames(pred_old[[i]][[j]]) <- sub("\\.3", "",colnames(pred_old[[i]][[j]]))
+    colnames(pred_old[[i]][[j]]) <- sub("\\.4", "",colnames(pred_old[[i]][[j]]))
+    rownames(pred_old[[i]][[j]]) <- as.character(rownames(pred_old[[i]][[j]]))
+  }
+}
+
+desc <- c("BurdenNumbers","Pharmacophores","AtomPairs","FragmentPairs","Carharts")
+
+for(i in 1:3){
+  for(j in 1:5){
+    cat(paste0("\nSplit ",i," Descriptor Set: ", desc[j],"\n"))
+    print(all.equal(bb$all.preds[[i]][[j]][,-1], pred_old[[i]][[j]]))
+#     print(head(bb$all.preds[[i]][[j]][,-1]))
+#     print(head(pred_old[[i]][[j]]))
+  }
+}
+
+# Ridge regression results in different predictions for Split 1 Atom Pairs?
+boxplot(bb$all.preds[[1]][[3]][,"Ridge"] - pred_old[[1]][[3]][,"Ridge"])
+
+# no longer any differences in RF?
+boxplot(bb$all.preds[[i]][[j]][,"RF"] - pred_old[[i]][[j]][,"RF"])
+
+```
+
+```{r compare prob, echo=T, cache=TRUE, fig.height=4, fig.width=4}
+prob1 <- read.csv("../../ChemModLab_old/Split1/prob (2014_07_23 17_49_31 UTC).csv",
+                  skip = 1, row.names = 1)
+prob2 <- read.csv("../../ChemModLab_old/Split2/prob (2014_07_23 17_49_31 UTC).csv",
+                  skip = 1, row.names = 1)
+prob3 <- read.csv("../../ChemModLab_old/Split3/prob (2014_07_23 17_49_31 UTC).csv",
+                  skip = 1, row.names = 1)
+
+prob_old <- list()
+prob_old[[1]] <- list(prob1[,2:8],prob1[,grep("\\.1",colnames(prob1))],
+                      prob1[,grep("\\.2",colnames(prob1))],prob1[,grep("\\.3",colnames(prob1))],
+                      prob1[,grep("\\.4",colnames(prob1))])
+prob_old[[2]] <- list(prob2[,2:8],prob2[,grep("\\.1",colnames(prob2))],
+                      prob2[,grep("\\.2",colnames(prob2))],prob2[,grep("\\.3",colnames(prob2))],
+                      prob2[,grep("\\.4",colnames(prob2))])
+prob_old[[3]] <- list(prob3[,2:8],prob3[,grep("\\.1",colnames(prob3))],
+                      prob3[,grep("\\.2",colnames(prob3))],prob3[,grep("\\.3",colnames(prob3))],
+                      prob3[,grep("\\.4",colnames(prob3))])
+
+for(i in 1:3){
+  for(j in 1:5){
+    colnames(prob_old[[i]][[j]]) <- sub("\\.1", "",colnames(prob_old[[i]][[j]]))
+    colnames(prob_old[[i]][[j]]) <- sub("\\.2", "",colnames(prob_old[[i]][[j]]))
+    colnames(prob_old[[i]][[j]]) <- sub("\\.3", "",colnames(prob_old[[i]][[j]]))
+    colnames(prob_old[[i]][[j]]) <- sub("\\.4", "",colnames(prob_old[[i]][[j]]))
+    rownames(prob_old[[i]][[j]]) <- as.character(rownames(prob_old[[i]][[j]]))
+  }
+}
+
+desc <- c("BurdenNumbers","Pharmacophores","AtomPairs","FragmentPairs","Carharts")
+
+for(i in 1:3){
+  for(j in 1:5){
+    cat(paste0("\nSplit ",i," Descriptor Set: ", desc[j],"\n"))
+    print(all.equal(bb$all.probs[[i]][[j]][,-1], prob_old[[i]][[j]]))
+#     print(head(bb$all.probs[[i]][[j]][,-1]))
+#     print(head(prob_old[[i]][[j]]))
+  }
+}
+
+# no substantial differences in RF anymore
+boxplot(bb$all.probs[[i]][[j]][,"RF"] - prob_old[[i]][[j]][,"RF"])
+
+```
+
+## New Functions of ChemModLab
+
+I have changed the ChemModLab code so that it takes any descriptor set, allows you to specify the names of the descriptor sets, and will flexibly incorporate new methods.  Previously the set of methods, descriptor sets, and number of splits were assumed in the code.  I have tested that the analyses are still working properly and that the labels on the plots appropriatey reflect the changes I have made.
+
+```{r load data2, echo=T, cache=TRUE}
+setwd("C:/Users/Vestige/Dropbox/ChemModLab/example_run/")
+
+yfilein <- read.csv("AID_364.csv")
+xfilein1 <- read.csv("BurdenNumbers.csv")
+xfilein2 <- read.csv("Carharts.csv")[, 1:26]
+data <- cbind(yfilein, xfilein1[,-1], xfilein2[,-1])
+
+source("../background_test2_name_change.R")
+
+# bb <- ModelTrain(data, idcol=1, 
+#                  models = c("NNet","PCR","ENet","PLS","Ridge",
+#                             "Lasso","PLSLDA","RPart","Tree","SVM","KNN","Forest"),
+#                  xcols = list(seq(3,25+3),seq(25+4,ncol(data))),
+#                  des.names = c("Burden Numbers", "Carharts"),
+#                  nsplits = 5, nfolds=10, seed.in=c(12,34,56,78,910))
+
+load("5split_run.RData")
+```
+
+```{r Plot Results3, cache=T, echo=F}
+load("5split_run.RData")
+result <- bb
+CombineSplits(result)
+```
+
+The treatments and blocks are being assigned properly when the number of splits are increased. The descriptor set names are being set properly.  The seeds are being set properly.  I have also tested that when I change the name of a method the treatments are assigned properly and the label in the plots is correct.
+
+```{r new treat, cache=T, echo=T}
+source("../background_test_name_change.R")
+out <- CombineSplits(result)
+head(out)
+tail(out)
+```
+
+```{r combine new code, cache=T, echo=T, fig.height=6, fig.width=6}
+source("../background_test_new_summary.R")
+CombineSplits(result,metric="error rate")
+```
+

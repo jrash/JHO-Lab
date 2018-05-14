@@ -1,0 +1,118 @@
+---
+title: "Testing glmnet Lasso"
+author: "Jeremy Ash"
+date: "April 5, 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T)
+library(chemmodlab)
+```
+
+## Cannot find a good lambda value
+
+I cannot find a good lambda value for `glmnet` lasso when analyzing the full aid364 dataset and using binomial regression.  Even when trying a large grid of lambda values, I can only seem to get LassoGLM to predict 1 for one observation in the best case
+
+
+```{r cars}
+
+setwd("C:/Users/Vestige/Google Drive/JeremyAsh/Fourches_lab/chemmodlab_tutorial/")
+aid364 <- read.csv("AID_364_response.csv")
+
+desc.lengths <- c()
+d <- read.csv("BurdenNumbers.csv")
+
+d <- d[-1]
+aid364 <- cbind(aid364, d)
+desc.lengths <- c(desc.lengths, ncol(d))
+
+d <- read.csv("Pharmacophores.csv")
+
+d <- d[-1]
+aid364 <- cbind(aid364, d)
+desc.lengths <- c(desc.lengths, ncol(d))
+
+dim(aid364)
+
+des.names = c("BurdenNumbers", "Pharmacophores")
+
+
+params <- MakeModelDefaults(nfolds = 10, n = nrow(aid364), p = ncol(aid364) - 1, classify = T)
+
+params$LassoGLM$lambda
+
+```
+
+```{r, results = "hide", warnings = F}
+cml <- ModelTrain(aid364, ids = TRUE, xcol.lengths = desc.lengths,
+                  des.names = des.names, models = "LassoGLM")
+```
+
+```{r} 
+plot(cml, splits = 1, series = "descriptors")
+
+# using a huge grid!
+
+grid =c(10^seq(10,-10, length =100), 0)
+
+work.meth <- glmnet::glmnet(y = as.factor(aid364$Outcome), 
+                            x = as.matrix(aid364[, 3:26]),
+                            alpha = 1, family = "binomial",
+                            lambda = grid)
+plot(work.meth)
+
+temp.pred <- predict(work.meth,
+                     as.matrix(aid364[, 3:26]),
+                     type = "class")
+
+head(temp.pred[, 1:6])
+
+for(i in 1:100) {
+  cat(sum(temp.pred[, i] == "1"))
+  cat(" , ")
+}
+```
+
+## Is the problem correlated descriptors?
+
+Doesn't look like it:
+
+```{r}
+grid =c(10^seq(10,-10, length =100), 0)
+
+library(caret)
+
+aid364_burd <- aid364[, 3:26]
+cor_des <- findCorrelation(cor(aid364_burd), cutoff = .7)
+aid364_burd <- aid364_burd[, -cor_des]
+dim(aid364_burd)
+
+work.meth <- glmnet::glmnet(y = as.factor(aid364$Outcome), 
+                            x = as.matrix(aid364_burd),
+                            alpha = 1, family = "binomial",
+                            lambda = grid)
+plot(work.meth)
+
+temp.pred <- predict(work.meth,
+                     as.matrix(aid364_burd),
+                     type = "class")
+
+head(temp.pred[, 1:6])
+
+sum(temp.pred == "1")
+```
+
+This hard for me to make sense of because treating the response as continuous and using the lars algorithm for lasso does reasonably well.  Why would a regression lasso perform so much better than logistic regression lasso?  Maybe convergence issues for the logistic regression model?  I usually see warnings when there are convergence issues though.
+
+```{r, results = "hide", warnings = F}
+
+pairs(cbind(aid364$Outcome, aid364_burd))
+
+cml <- ModelTrain(aid364, ids = TRUE, xcol.lengths = desc.lengths,
+                  des.names = des.names, models = "Lasso")
+```
+
+```{r, cache = F}
+plot(cml, splits = 1, series = "descriptors")
+```

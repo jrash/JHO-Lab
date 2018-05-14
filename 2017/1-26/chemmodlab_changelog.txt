@@ -1,0 +1,10 @@
+Major changes to chemmodlab:
+     -finished function documentation
+     -can plot a subset of accumulation curve plots now
+     -plots of accumulation curves look a bit different
+          -should we change to plotting every curve at x=0, y=0?
+     -more intuitive specification of descriptor sets
+          -making another function that will take descriptor sets as a list of dataframes
+     -added example dataset
+          -reduced sample size so code will run faster (removed large number of inactives)
+          -can access when package is loaded

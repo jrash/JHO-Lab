@@ -1,0 +1,9 @@
+\BOOKMARK [0][-]{section*.1}{chemmodlab}{}% 1
+\BOOKMARK [1][-]{section.2.1}{Introduction}{section*.1}% 2
+\BOOKMARK [1][-]{section.2.2}{chemmodlab implementation}{section*.1}% 3
+\BOOKMARK [2][-]{subsection.2.2.1}{Overview}{section.2.2}% 4
+\BOOKMARK [2][-]{subsection.2.2.2}{An illustrative example}{section.2.2}% 5
+\BOOKMARK [2][-]{subsection.2.2.3}{Model fitting: The ModelTrain function}{section.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.4}{Model assessment}{section.2.2}% 7
+\BOOKMARK [1][-]{section.2.3}{Results}{section*.1}% 8
+\BOOKMARK [2][-]{subsection.2.3.1}{Summary}{section.2.3}% 9

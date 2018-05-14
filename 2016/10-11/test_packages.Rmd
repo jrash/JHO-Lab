@@ -1,0 +1,268 @@
+---
+title: "Testing ChemModLab Code"
+author: "Jeremy Ash"
+date: "October 5, 2016"
+output: pdf_document
+---
+
+In this documnet I am trying to identify why there are differences between Random Forest and SVM predictions found by the ChemModLab code I run on my machines (Linux and Windows OS) and the output I was originally provided from a run in 2009.  I was never able to completely reproduce the output I was provided, even when I run the original code without any modifications an my machines.  However, I was able to generate output whose differences in prediction and predicted probabilities are nearly identical in distribution to the differences I see between the original output and runs on my machines.  I was able to reproduce these similar differences by simply changing the sequence of random numbers being used by Random Forest and SVM.  I conclude that the differences in prediction and predicted probabilties have been produced in a difference in random number generation, and are not major cause for concern.  I also demonstrate that the random number seeds are being set properly in my current code and that there are no differences in prediction and predicted probabilities between my current code and the original code I was provided.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, root.dir = "C:/Users/Vestige/Google Drive/ChemModLab/", fig.height=8, fig.width=8)
+library(gplots)
+
+options(repos=c(CRAN="http://archive.linux.duke.edu/cran/"))
+```
+
+## Data: Burden Number Descriptors and Active/Inactive Response
+
+```{r load data, echo=FALSE, cache=TRUE}
+
+yfilein <- read.csv("AID_364.csv")
+xfilein <- read.csv("BurdenNumbers.csv")
+data <- cbind(yfilein, xfilein[,-1])
+head(data[1:6])
+```
+
+Sevaral different runs of ChemModLab were compared:
+
+* The original output I was provided
+* The original code with the 2008 Random Forest and SVM packages
+    * Attempting to recreate the state of the packages when the original output was generated
+* The original code with original packages on my linux machine
+    * When I was unable to recreate the output with the original packages, I checked to see if the reason was that I was running the code on a windows machine 
+* The current code with the current packages
+* The current code with the current packages with variable importance turned on
+    * To demonstrate that a change in the sequence of the random numbers recreates the problem
+* A second iteration of the current code with the current packages
+    * When it became clear that the problem was being cause by random number generation, I made sure the results are the same when the seed is the same
+
+## Old Code with 2008 packages
+
+Installing the most current packages at the time the original ChemModLab output was generated.
+
+```{r Run old code old packages, cache=T, echo=T, eval=F, size='smallsize'}
+
+#install 2008 versions of svm and random Forest
+install.packages("C:/Users/Vestige/Downloads/randomForest_4.5-28.tar.gz", repos = NULL, type="source")
+install.packages("C:/Users/Vestige/Downloads/e1071_1.5-18.tar.gz", repos = NULL, type="source")
+
+source("background_test.R")
+
+bb<-back.bench(yfilein="AID_364.csv",
+               xfilein="BurdenNumbers.csv",
+               filepred="Split1/BurdenNumbers/pred_old_oldp.csv",
+               fileimpdesc="Split1/BurdenNumbers/varimp_old_oldp.csv",
+               fileprob="Split1/BurdenNumbers/prob_old_oldp.csv",
+               filesummary="Split1/BurdenNumbers/summary_old_oldp.txt",
+               nfolds=10,idcol=1,infofile="info.txt",
+               logfile="log_old_oldp.txt",seed.in=11111)
+
+```
+
+Printing the version of the loaded packages to show that the 2008 packages were loaded.
+
+```{r Check New Packages, cache=FALSE}
+library(e1071)
+packageVersion("e1071")
+library(randomForest)
+packageVersion("randomForest")
+```
+
+## New Code with New Packages
+
+I have added the "rpart"" package to the current code.  This packages was made by the authors of mvpart.  They have moved the rpart function to this package. As you will see, I have implemented the model in the exact same way it was implemented in the original code, thought the syntax is different.  The prediction and predicted probabilties are unchanged.
+
+```{Rpart, cache=T,eval=F, echo=T}
+
+  #-----Recursive partitioning using "rpart" with splitting criterion "information" and
+  # minbucket=5, minimum leaf size
+  # minsplit=10, minimum parent size
+  # maxcompete=0, don't get information on competitive splits
+  # maxsurrogate=0, don't get information on surrogate splits
+  # Possible modifications that have NOT been pursued here:
+  # many ...
+
+# new syntax
+
+rpart(as.factor(y)~.,data=work.data,subset=(fold.id!=id), method="class",
+      parms=list(split="information"), control = 
+        rpart.control(minsplit=10, minbucket=5, maxcompete=0, maxsurrogate=0)) 
+
+# old syntax
+
+rpart( as.factor(y)~.,data=work.data,subset=(fold.id!=id), method="class",
+       parms=list(split="information"), minsplit=10, minbucket=5, maxcompete=0, maxsurrogate=0 )
+
+
+
+```
+
+
+
+```{r New Code with New Packages, cache=T,eval=F, echo=T}
+
+# install.packages("randomForest")
+# install.packages("e1017")
+
+source("C:/Users/Vestige/Dropbox/ChemModLab/background.R")
+
+bb <- ModelTrain(data, idcol=1, 
+                 models = c("NNet","PCR","ENet","PLS","Ridge",
+                            "LARs","PLSLDA","RPart","Tree","SVM","KNN","Forest"),     
+                 nfolds=10, seed.in=c(11111))
+
+
+write.csv(bb$all.preds[[1]][[1]], 
+          "Split1/BurdenNumbers/pred_new_newp.csv")
+write.csv(bb$all.probs[[1]][[1]], 
+          "Split1/BurdenNumbers/prob_new_newp.csv")
+
+```
+
+## Runing 2nd iteration to check set.seed
+
+```{r New Code with New Packages rep, cache=T, eval=F, echo=T, results='hide'}
+
+source("C:/Users/Vestige/Dropbox/ChemModLab/background.R")
+
+bb <- ModelTrain(data, idcol=1, 
+                 models = c("NNet","PCR","ENet","PLS","Ridge",
+                            "LARs","PLSLDA","RPart","Tree","SVM","KNN","Forest"),     
+                 nfolds=10, seed.in=c(11111))
+
+write.csv(bb$all.preds[[1]][[1]], 
+          "Split1/BurdenNumbers/pred_new_newp_rep.csv")
+write.csv(bb$all.probs[[1]][[1]], 
+          "Split1/BurdenNumbers/prob_new_newp_rep.csv")
+
+```
+
+
+## New Code, New Packages with variable importance turned on for RF and SVM
+
+When variable importance measure is turned on, random numbers are generated and used for the permutation of the predicted probabilties.  The prediction accuracy for the permuted data is used as a baseline to which the prediction of accuracy of the model is compared. For random forests, this results in a different sequence of random numbers used for sampling variables at each split.  I still need to look into how this affects SVM.
+
+```{r New Code with New Packages Var Imp, cache=T, eval=F, echo=T, results='hide'}
+
+source("C:/Users/Vestige/Dropbox/ChemModLab/background_varimp.R")
+
+bb <- ModelTrain(data, idcol=1, 
+                 models = c("NNet","PCR","ENet","PLS","Ridge","LARs",
+                            "PLSLDA","RPart","Tree","SVM","KNN","Forest"),     
+                 nfolds=10, seed.in=c(11111))
+
+write.csv(bb$all.preds[[1]][[1]], 
+          "Split1/BurdenNumbers/pred_new_newp_varimp.csv")
+write.csv(bb$all.probs[[1]][[1]], 
+          "Split1/BurdenNumbers/prob_new_newp_varimp.csv")
+
+
+```
+
+
+##  Comparing new predictions to original output
+
+```{r Read in predicitions, cache=T, echo=T}
+pred_new_newp <- read.csv("Split1/BurdenNumbers/pred_new_newp.csv", row.names = 1)
+pred_old_oldp <- read.csv("Split1/BurdenNumbers/pred_old_oldp.csv", row.names = 1, skip = 1)
+pred_old_oldp_linux <- read.csv("Split1/BurdenNumbers/pred_old_oldp_linux.csv", row.names = 1, skip = 1)
+pred_new_newp_varimp <- read.csv("Split1/BurdenNumbers/pred_new_newp_varimp.csv", row.names = 1)
+pred_new_newp_rep <- read.csv("Split1/BurdenNumbers/pred_new_newp_rep.csv", row.names = 1)
+pred_orig <- read.csv("Split1/BurdenNumbers/pred_orig.csv", row.names = 1)
+
+```
+
+Heatmap showing the comparison of the predictions for each run.  Red means there is a difference between runs, white means no difference. (all.equal used for comparison of each column of each matrix)
+
+There are no differences in predictions when the new code is run with the most recent packages and the old code is run with the 2008 packages.
+
+```{r Compare predicitions, cache=T, echo=F}
+ls <- list(original = pred_orig, new_newp = pred_new_newp, 
+           new_newp_rep = pred_new_newp_rep, old_oldp = pred_old_oldp, 
+           old_oldp_linux = pred_old_oldp_linux, new_newp_varimp = pred_new_newp_varimp)
+
+mat <- matrix(NA, nrow = 6, ncol = 6)
+for(i in seq_along(ls)){
+  for(j in seq_along(ls)){
+    # cat(paste("\n",names(ls)[i],names(ls)[j], "\n\n"))
+    mat[i,j] <- as.numeric((all.equal(ls[[i]],ls[[j]], scale = 1) == T)[1])
+  }
+}
+colnames(mat) <- names(ls)
+rownames(mat) <- names(ls)
+par(oma=c(4, 2, 2, 4), mar=c(4, 4, 4, 4))
+heatmap.2(mat, trace = NULL, cexRow = .95, cexCol = .95)
+
+
+```
+
+The number of different predictions between original and new code is close to the number of different predictions between new code and new code when only the variable importance is turned on.
+
+```{r Which predicitions are wrong, cache=T, echo=T}
+
+
+which(pred_new_newp_varimp$RF != pred_orig$RF)
+which(pred_new_newp$RF != pred_new_newp_varimp$RF)
+which(pred_new_newp$RF != pred_orig$RF)
+
+```
+
+##  Comparing new predicted probabilities to original output
+
+```{r Read in probabilities, cache=T, echo=T}
+prob_new_newp <- read.csv("Split1/BurdenNumbers/prob_new_newp.csv", row.names = 1)
+prob_old_oldp <- read.csv("Split1/BurdenNumbers/prob_old_oldp.csv", row.names = 1, skip = 1)
+prob_old_oldp_linux <- read.csv("Split1/BurdenNumbers/prob_old_oldp_linux.csv", row.names = 1, skip = 1)
+prob_new_newp_varimp <- read.csv("Split1/BurdenNumbers/prob_new_newp_varimp.csv", row.names = 1)
+prob_new_newp_rep <- read.csv("Split1/BurdenNumbers/prob_new_newp_rep.csv", row.names = 1)
+
+
+prob_orig <- read.csv("Split1/BurdenNumbers/prob_orig.csv", row.names = 1)
+
+
+# there are some miniscule differences in predicted probabilities 
+# for NNet when I use my linux machine
+
+all.equal(prob_old_oldp,prob_old_oldp_linux, scale = 1)
+
+```
+
+
+Heatmap showing the comparison of all the predicted probabilties for each run.  Red means there is a difference between runs, white means no difference.  Miniscule differences in predicted probabilities for NNet were disregarded.  
+
+```{r Compare probabilities, cache=T, echo=F}
+mat <- matrix(NA, nrow = 6, ncol = 6)
+for(i in seq_along(ls)){
+  for(j in seq_along(ls)){
+    # cat(paste("\n",names(ls)[i],names(ls)[j], "\n\n"))
+    eq <- all.equal(ls[[i]],ls[[j]], scale = 1)
+    mat[i,j] <- as.numeric( (eq == T) | (grepl("NNet", eq) == T))[1]
+    # print(all.equal(ls[[i]],ls[[j]], scale = 1))
+  }
+}
+colnames(mat) <- names(ls)
+rownames(mat) <- names(ls)
+par(oma=c(4, 2, 2, 4), mar=c(4, 4, 4, 4))
+heatmap.2(mat, trace = NULL, cexRow = .95, cexCol = .95)
+
+```
+
+There are no differences in predicted probabilities when the new code is run with the most recent packages and the old code is run with the most recent packages in 2009.  This along with no difference in prediction suggests that there have not been any changes to the defaults in the packages that were originally used in ChemModLab in 2009.
+
+
+The distributions of the differences of the predicted probabilities between the original and new code resemble differences between new code and new code when only the variable importance measure is turned on.  
+
+```{r Which probabilties are wrong, cache=T, echo=F}
+
+par(mfrow = c(1,2))
+hist(prob_orig$RF - prob_new_newp$RF, main="orginal_RF V new_RF")
+hist(prob_new_newp_varimp$RF - prob_new_newp$RF, main = "new_RF V new_varimp_RF")
+boxplot(prob_orig$RF - prob_new_newp$RF, main="orginal_RF V new_RF")
+boxplot(prob_new_newp_varimp$RF - prob_new_newp$RF, main = "new_RF V new_varimp_RF")
+
+hist(prob_orig$SVM - prob_new_newp$SVM, main="orginal_SVM V new_SVM")
+hist(prob_new_newp_varimp$SVM - prob_new_newp$SVM, main = "new_SVM V new_varimp_SVM")
+boxplot(prob_orig$SVM - prob_new_newp$SVM, main="orginal_SVM V new_SVM")
+boxplot(prob_new_newp_varimp$SVM - prob_new_newp$SVM, main = "new_SVM V new_varimp_SVM")
+```

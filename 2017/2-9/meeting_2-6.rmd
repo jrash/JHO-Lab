@@ -1,0 +1,162 @@
+---
+title: "ChemModLab Full Dataset Test and New Functions"
+author: "Jeremy Ash"
+date: "February 9, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(caret)
+library(chemmodlab)
+```
+
+# Analysis of MD-QSAR Dataset
+
+Reading in the data
+
+```{r, read in data}
+desc_lengths <- c()
+fing <- read.csv("procDesFingMACCS_all.csv", row.names = 1)
+fing <- fing[-findCorrelation(cor(fing), cutoff = .9)]
+desc_lengths <- c(desc_lengths, ncol(fing))
+twoD <- read.csv("procDes2D_all.csv",row.names = 1)
+twoD <- twoD[-findCorrelation(cor(twoD), cutoff = .9)]
+desc_lengths <- c(desc_lengths, ncol(twoD))
+threeD <- read.csv("procDes3D_all.csv", row.names = 1)
+threeD <- threeD[-findCorrelation(cor(threeD), cutoff = .9)]
+desc_lengths <- c(desc_lengths, ncol(threeD))
+fourD <- read.csv("procDes4D_all.csv", row.names = 1)
+fourD <- fourD[-findCorrelation(cor(fourD), cutoff = .9)]
+desc_lengths <- c(desc_lengths, ncol(fourD))
+
+pki <- read.csv("pkis_right_labels.csv")
+pki$rowid = as.character(pki$rowid)
+
+all = merge(pki, fing, by.x = "rowid", by.y= "row.names")
+all = merge(all, twoD, by.x= "rowid", by.y= "row.names")
+all = merge(all, threeD, by.x= "rowid", by.y= "row.names")
+all = merge(all, fourD, by.x= "rowid", by.y= "row.names")
+
+desc_lengths <- c(desc_lengths, ncol(all[,-c(1,2)]))
+all = cbind(all, all[,-c(1,2)])
+
+CSARidx = 1:39
+modelidx = 40:87
+model_set <- all[modelidx, ]
+head(model_set[1:6])
+
+```
+
+The number of descriptors in each descriptor set
+
+```{r}
+desc_lengths
+```
+
+There are only 48 compounds in this dataset.  Don't know if repeated 10 fold cross validation is the best thing to do in this case, but that is what I did.  We could do LOOCV, but then it doesn't make sense to do repeats.
+
+```{r}
+dim(model_set)
+```
+
+The descriptor set names
+
+```{r}
+des.names <- c("Fing", "2D", "3D", "MD", "all")
+```
+
+## Analyze descriptor sets alone and combination of all
+
+Interestingly, do not see any PLS errors as I had when analyzing the USArrests data set.
+
+```{r, small analysis, message=FALSE, warning=FALSE, results='hide'}
+cml <- ModelTrain(model_set, ids = T, xcol.lengths = desc_lengths,
+                  des.names = c("Fing", "2D", "3D", "MD", "all"))
+```
+
+For one of the consistently best performing models (PLS - see CombineSplits results below), the MD descriptors have predictions of pki for the most active compounds that are approximately as good as (or better than) those of other descriptor sets.  MD descriptors are slightly better at identifying the very most active compounds with PLS.  All models seem to be under predicting the activity of the most active compounds.  For some reason RF (another best perfoming model) is not plotting.  I am looking into this.
+
+Question: if a continuous measure of activity is used and many of the $n$ most active compounds have their activity predicted by a model, is it possible for the accumulation curve to have a steeper slope than the ideal curve?  I understand that for any member of the set of most active compounds, there won't be many more active compounds, so this is unlikely.  A more than ideal accumulation curve might be problematic, but I guess it is unlikely enough to not worry about.
+
+```{r}
+plot(cml, splits = 1)
+```
+
+Multiple comparison plots show that the PLS and RF models consistently perform the best.  The descriptor set containing all descriptors is not significantly different from the best performin models using all metrics.
+
+```{r}
+CombineSplits(cml, at = 12)
+```
+
+```{r}
+CombineSplits(cml, "R2")
+CombineSplits(cml, "rho")
+```
+
+What is going on with RMSE?
+
+```{r}
+CombineSplits(cml, "RMSE")
+```
+
+## Use 10 splits to see if there are more significant differences
+
+Considering R2, only models using the Fingerprints and 2D descriptors are performing the best.
+
+```{r, more splits, message=FALSE, warning=FALSE, results='hide'}
+cml <- ModelTrain(model_set, ids = T, xcol.lengths = desc_lengths,
+                  des.names = c("Fing", "2D", "3D", "MD", "all"),
+                  nsplits = 10)
+```
+
+```{r}
+CombineSplits(cml)
+CombineSplits(cml, "R2")
+CombineSplits(cml, "rho")
+CombineSplits(cml, "RMSE")
+```
+
+## Analyzing all descriptor set combinations
+
+```{r, combine descriptors, message=FALSE, warning=FALSE, results='hide'}
+
+desc = list(fing = fing, twoD = twoD, threeD = threeD, fourD = fourD)
+des.names <- c("Fing", "2D", "3D", "MD", "model_set")
+sets <- c("F", "2", "3", "M")
+
+for(i in 1:4){
+  for(j in 1:(i)){
+    if(i!=j){
+      data <- merge(desc[[i]], desc[[j]], by.x = "row.names", by.y= "row.names")
+      desc_lengths <- c(desc_lengths, ncol(data[, -1]))
+      model_set <- merge(model_set, data, by.x = "rowid", by.y= "Row.names")
+      des.names <- c(des.names, paste(sets[i],sets[j],sep=""))
+    }
+  }
+}
+
+for(i in 1:4){
+  indices <- seq(1,4)[-i]
+  data = merge(desc[[indices[1]]], desc[[indices[2]]],
+               by.x = "row.names", by.y= "row.names")
+  data = merge(data, desc[[indices[3]]], by.x = "Row.names",
+               by.y= "row.names")
+  desc_lengths <- c(desc_lengths, ncol(data[, -1]))
+  model_set <- merge(model_set, data, by.x = "rowid", by.y= "Row.names")
+  des.names <- c(des.names, paste(sets[indices[1]],
+                                  sets[indices[2]],
+                                  sets[indices[3]], sep=""))
+}
+```
+
+```{r, big analysis, message=FALSE, warning=FALSE, results='hide'}
+cml <- ModelTrain(model_set, ids = T, xcol.lengths = desc_lengths,
+                  des.names = des.names)
+
+CombineSplits(cml)
+CombineSplits(cml, "R2")
+CombineSplits(cml, "rho")
+CombineSplits(cml, "RMSE")
+```
+

@@ -1,0 +1,261 @@
+> devtools::release()
+Warning: DR_DEVTOOLS FOUND PROBLEMS
+* R is out of date (3.3.1 vs 3.4.0)
+* Devtools or dependencies out of date: curl, git2r, jsonlite, openssl
+Proceed anyway?
+1: Nope
+2: I forget
+3: Definitely
+
+Selection: 3
+Building and checking chemmodlab ==================================================================
+Updating chemmodlab documentation
+Loading chemmodlab
+Writing aid364.Rd
+Writing CombineSplits.Rd
+Writing ModelTrain.Rd
+Writing chemmodlab.Rd
+Writing plot.chemmodlab.Rd
+Writing MakeModelDefaults.Rd
+Setting env vars ----------------------------------------------------------------------------------
+CFLAGS  : -Wall -pedantic
+CXXFLAGS: -Wall -pedantic
+Building chemmodlab -------------------------------------------------------------------------------
+"C:/PROGRA~1/R/R-33~1.1/bin/x64/R" --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD build "C:\Users\Vestige\Dropbox\JHO_lab\chemmodlab" --no-resave-data 
+
+* checking for file 'C:\Users\Vestige\Dropbox\JHO_lab\chemmodlab/DESCRIPTION' ... OK
+* preparing 'chemmodlab':
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files
+* checking for empty or unneeded directories
+* looking to see if a 'data/datalist' file should be added
+* building 'chemmodlab_1.0.0.tar.gz'
+
+Setting env vars ----------------------------------------------------------------------------------
+_R_CHECK_CRAN_INCOMING_ : TRUE
+_R_CHECK_FORCE_SUGGESTS_: FALSE
+Checking chemmodlab -------------------------------------------------------------------------------
+"C:/PROGRA~1/R/R-33~1.1/bin/x64/R" --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD check "C:\Users\Vestige\AppData\Local\Temp\RtmpKuMWFb/chemmodlab_1.0.0.tar.gz"  \
+  --run-donttest --as-cran --timings 
+
+* using log directory 'C:/Users/Vestige/AppData/Local/Temp/RtmpKuMWFb/chemmodlab.Rcheck'
+* using R version 3.3.1 (2016-06-21)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* using options '--run-donttest --as-cran'
+* checking for file 'chemmodlab/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'chemmodlab' version '1.0.0'
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Jeremy Ash <jrash@ncsu.edu>'
+
+New submission
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for .dll and .exe files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking whether package 'chemmodlab' can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... OK
+Examples with CPU or elapsed time > 5s
+              user system elapsed
+CombineSplits 4.95   0.64    6.98
+* checking PDF version of manual ... OK
+* DONE
+
+Status: 1 NOTE
+See
+  'C:/Users/Vestige/AppData/Local/Temp/RtmpKuMWFb/chemmodlab.Rcheck/00check.log'
+for details.
+
+
+Was R CMD check successful?
+1: Yup
+2: I forget
+3: No
+
+Selection: 1
+Running additional devtools checks for chemmodlab
+Checking version number has three components... OK
+Checking dependencies don't rely on dev versions... OK
+Checking DESCRIPTION doesn't have Remotes field... OK
+Were devtool's checks successful?
+1: For sure
+2: I forget
+3: No way
+
+Selection: 1
+Have you checked on win-builder (with build_win())?
+1: Yes
+2: No way
+3: Uhhhh... Maybe?
+
+Selection: 1
+Have you updated your NEWS file?
+1: I forget
+2: Nope
+3: Yes
+
+Selection: 3
+DESCRIPTION ---------------------------------------------------------------------------------------
+Package: chemmodlab
+Type: Package
+Title: A Cheminformatics Modeling Laboratory for Fitting and Assessing Machine
+    Learning Models
+Version: 1.0.0
+Date: 2017-04-21
+Authors@R: c(
+	person("Jacqueline", "Hughes-Oliver", email = "hughesol@ncsu.edu", role = c("aut")),
+	person("Jeremy", "Ash", email = "jrash@ncsu.edu", role = c("aut", "cre")), 
+	person("Atina", "Brooks", email = "atina.brooks@alumni.ncsu.edu", role = c("aut"))
+	)
+Description: Contains a set of methods for fitting models and methods for
+    validating the resulting models. The statistical methodologies comprise
+    a comprehensive collection of approaches whose validity and utility have
+    been accepted by experts in the Cheminformatics field. As promising new
+    methodologies emerge from the statistical and data-mining communities, they
+    will be incorporated into the laboratory. These methods are aimed at discovering
+    quantitative structure-activity relationships (QSARs). However, the user can
+    directly input their own choices of descriptors and responses, so the capability
+    for comparing models is effectively unlimited.
+Depends:
+    R (>= 3.1.1)
+License: GPL-3
+LazyData: TRUE
+URL: https://github.com/jrash/ChemModLab
+BugReports: https://github.com/jrash/ChemModLab/issues
+Imports:
+    class (>= 7.3.14),
+    e1071 (>= 1.6.7),
+    elasticnet (>= 1.1),
+    foreach(>= 1.4.3),
+    lars(>= 1.2),
+    MASS(>= 7.3.45),
+    nnet(>= 7.3.12),
+    pROC(>= 1.8),
+    randomForest(>= 4.6.12),
+    rpart(>= 4.1.10),
+    tree (>= 1.0.37),
+    pls (>= 2.5.0),
+    caret (>= 6.0-71),
+    stats,
+    graphics,
+    grDevices,
+    utils,
+    datasets,
+    methods
+RoxygenNote: 5.0.1
+NeedsCompilation: no
+Packaged: 2017-01-12 16:33:49 UTC; Vestige
+Author: Jacqueline Hughes-Oliver [aut],
+    Jeremy Ash [aut, cre],
+    Atina Brooks [aut]
+Maintainer: Jeremy Ash <jrash@ncsu.edu>
+Suggests:
+    knitr,
+    rmarkdown
+
+Is DESCRIPTION up-to-date?
+1: Absolutely
+2: Not yet
+3: Nope
+
+Selection: 1
+cran-comments.md ----------------------------------------------------------------------------------
+## Test environments
+* local Windows 10 install, R 3.3.1
+* local Ubuntu 14.04 install, R 3.3.3
+* win-builder (devel and release) 
+
+## R CMD check results
+There were no ERRORs or WARNINGs
+
+There was 1 NOTE:
+
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Jeremy Ash <jrash@ncsu.edu>'
+
+New submission
+
+Possibly mis-spelled words in DESCRIPTION:
+  Cheminformatics (3:10, 15:37)
+  QSARs (18:52)
+
+This is the first submission of the package.  Those words aren't mis-spelled.  
+  
+## Downstream dependencies
+There are currently no downstream dependencies for this package. 
+
+Are the CRAN submission comments correct?
+1: For sure
+2: No
+3: I forget
+
+Selection: 1
+Is your email address jrash@ncsu.edu?
+1: No way
+2: Not yet
+3: Definitely
+
+Selection: 3
+Building
+"C:/PROGRA~1/R/R-33~1.1/bin/x64/R" --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD build "C:\Users\Vestige\Dropbox\JHO_lab\chemmodlab" --no-resave-data 
+
+* checking for file 'C:\Users\Vestige\Dropbox\JHO_lab\chemmodlab/DESCRIPTION' ... OK
+* preparing 'chemmodlab':
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files
+* checking for empty or unneeded directories
+* looking to see if a 'data/datalist' file should be added
+* building 'chemmodlab_1.0.0.tar.gz'
+
+Submitting file: C:\Users\Vestige\AppData\Local\Temp\RtmpKuMWFb/chemmodlab_1.0.0.tar.gz
+File size: 97.8 Kb
+Ready to submit?
+1: I forget
+2: Uhhhh... Maybe?
+3: Yeah
+
+Selection: 3
+Uploading package & comments
+Confirming submission
+Package submission successful.
+Check your email for confirmation link.
+Don't forget to tag the release when the package is accepted!

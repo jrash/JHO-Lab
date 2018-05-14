@@ -1,0 +1,260 @@
+---
+title: "LabMeeting11-9"
+author: "Jeremy Ash"
+date: "November 9, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, root.dir = "C:/Users/Vestige/Dropbox/ChemModLab/", fig.height=8, fig.width=8)
+library(gplots)
+library(caret)
+library(doParallel)
+
+options(repos=c(CRAN="http://archive.linux.duke.edu/cran/"))
+```
+
+# New Model Accuracy Measures
+
+I have implemented new performance measures for categorical data.  I have also made changes to labels in the output to report which summary measures are used.  I have also report informative errors when a summary measure is not requested properly:
+
+The summary measures for categorical data are:
+
+*  Intial enhancement
+    +  The "at" parameter can now be customized
+*  Error Rate
+    +  Can set the probability threshold for considering compounds as active or inactive
+*  AUC
+    +  intuition behind AUC: Ideally would want high SEC or SPC no matter the threshold.  May be underestimating or overestimating probabilities, still want to have high SEC or SPC even if threshold should be smaller, larger.
+*  $\rho$
+    +  I know this is less common
+*  Specificity
+*  Sensitivity
+
+Additional ones that we might consider:
+
+*  Area under the sensitivity or specificity curve
+*  Kappa
+*  Area under the accumulation curve
+*  Matthews correlation coefficient
+*  Balanced accuracy
+
+The summary measures for continuous data are:
+
+*  Intial enhancement
+    +  The "at" parameter can now be customized
+*  RMSE
+*  $R^2$
+*  $\rho$
+
+Additional ones that we might consider:
+
+*  AAE
+
+Snippit of code showing how I am computing some of the performance measures:
+
+```{r sample performance, echo=T, cache=T, eval= F}
+          yhat <- prob[[i]][, j] > thresh
+          if (metric == "enhancement") {
+            model.acc <- Enhancement(prob[[i]][, j], y, at)
+          } else if (metric == "auc") {
+            model.acc <- as.numeric(auc(y, prob[[i]][, j]))
+          } else if (metric == "error rate") {
+            model.acc <- mean(y != yhat)
+          } else if (metric == "specificity") {
+            idx <- y == 0
+            model.acc <- mean(y[idx] == yhat[idx])
+          } else if (metric == "sensitivity") {
+            idx <- y == 1
+            model.acc <- mean(y[idx] == yhat[idx])
+          } else if (metric == "rho") {
+            model.acc <- cor(y, prob[[i]][, j], method = "spearman")
+          } else {
+            stop("y is binary. 'metric' should be a model accuracy measure 
+              implemented for binary response in ChemModLab")
+          }
+```
+
+## Loading Previous Run
+
+The run that I was given data for intially was recreated using the new code.  I am reloading the results and analyzing again.  3 splits, all descriptor sets.
+
+\pagebreak
+
+```{r load prev run, echo=F, cache=T}
+
+load("example_run/fullrun.RData")
+source("background_newparms.R")
+```
+
+```{r Performance Measures, echo=T, cache=T, warning=F}
+CombineSplits(bb, metric = "enhancement", at = 200)
+CombineSplits(bb, metric = "enhancement", at = 300)
+CombineSplits(bb, metric = "error rate")
+CombineSplits(bb, metric = "specificity")
+CombineSplits(bb, metric = "sensitivity")
+CombineSplits(bb, metric = "auc")
+CombineSplits(bb, metric = "rho")
+
+```
+
+Many models have comparable specificity, but very few have high sensitivity.  There is a slightly larger subset of models that have high auc and enhancement.  The model with the best initial enhancement changes when I consider a different number of top ranked compounds.
+
+# Customizable Tuning Parameters
+
+Now users can set tuning parameters manually.  I have implemented a "MakeModelDefaults" function that allows the user to create a list of the default parameters, which they can then modify.  I have also created a "PrintModelDefaults" function which will allow the user to see the model defaults in a prettier format. I have also implemented error handeling that throws error if parameters are set incorrectly (eg. multiple values for one parameter) and warnings if parameter values are not used.
+
+Some issues I have encountered:
+
+*  How do I set the number of components to use for the homegrown PCR code?
+*  Nnet: weight decay tuned
+    +    regularizes the cost function, penalizes large weights and effectively limits the freedom of the model
+    +    For example, a simple way to regularize the cost function would be to add a zero mean gaussian prior to the weights: $\hat{E(w)}=E(w)+\frac{\lambda}{2}w^2$
+    +    not used for regression?
+*  Lar: tunning on max number of steps?
+*  KNN: no regression
+    +    only for KNNflex
+*  KNN: no regression
+*  rpart: tune cp
+    +    complexity parameter. Any split that does not decrease the overall lack of fit by a factor of cp is not attempted. For instance, with anova splitting, this means that the overall R-squared must increase by cp at each step. The main role of this parameter is to save computing time by pruning off splits that are obviously not worthwhile. Essentially,the user informs the program that any split which does not improve the fit by cp will likely be pruned off by cross-validation, and that hence the program need not pursue it.
+    +    can tune the size of the tree this way
+
+I show how the user can first tune their parameters using caret and then set those model parameters in ChemModLab.  I also demonstrate how parallel processing is used in caret.
+
+```{r fit model1, echo=T, cache=TRUE, results="hide"}
+
+source("background_newparms.R")
+
+yfilein <- read.csv("AID_364.csv")
+xfilein1 <- read.csv("BurdenNumbers.csv")
+data <- cbind(yfilein, xfilein1[,-1])
+head(data[, 1:6])
+
+bb <- ModelTrain(data, idcol=1, 
+                 models = c("NNet","PCR","ENet","PLS","Ridge",
+                            "LARs","PLSLDA","RPart","Tree","KNN","Forest"),
+                 nsplits = 3, nfolds=10)
+```
+
+```{r tune parameters, echo=T, cache=TRUE}
+
+CombineSplits(bb, metric = "auc")
+
+
+print(MakeModelDefaults)
+
+user.params <- MakeModelDefaults(n = nrow(data[, -1]), p = ncol(data[, -1]), classify = T, nfolds = 10)
+
+PrintModelDefaults(n = nrow(data[, -1]), p = ncol(data[, -1]), classify = T, nfolds = 10)
+
+# tuning model parameters in caret
+
+cl <- makeCluster(4)
+registerDoParallel(cl)
+
+data_caret <- data[, -1]
+
+# need to make outcome a 2 class variable
+
+data_caret$Outcome <- as.factor(ifelse(data_caret$Outcome == 1, "Active", "Inactive"))
+
+fitControl <- trainControl(method = "CV", 10, classProbs = TRUE,
+  summaryFunction = twoClassSummary)
+
+set.seed(823)
+
+rfFit <- train(Outcome ~ ., data = data_caret, method = "rf", 
+  trControl = fitControl, verbose = FALSE, tuneLength = 10, metric = "ROC")
+
+rfFit
+
+user.params$Forest <- data.frame(mtry= 6)
+
+set.seed(823)
+
+rfFit <- train(Outcome ~ ., data = data_caret, method = "nnet", 
+  trControl = fitControl, verbose = FALSE, tuneLength = 5, metric = "ROC")
+
+rfFit
+
+user.params$NNet <- data.frame(size = 5, decay = .1)
+
+# #can tune svm parameters using tune.svm
+# 
+# user.params$SVM <- data.frame(gamma = 2^-5, cost = 10^-2)
+```
+
+```{r fit model2, echo=T, cache=TRUE, results="hide"}
+
+# Do not need to make a list with all the parameters specified, can omit some
+# and then the defaults will be used for those parameters:
+
+# user.params <- list(NNet = data.frame(size = 3, decay = 0)
+
+source("background_newparms.R")
+
+bb <- ModelTrain(data, idcol=1, 
+                 models = c("NNet","PCR","ENet","PLS","Ridge",
+                            "LARs","PLSLDA","RPart","Tree","KNN","Forest"),
+                 nsplits = 3, nfolds=10, user.params = user.params)
+```
+
+```{r fit model2_cont, echo=T, cache=TRUE}
+CombineSplits(bb, metric = "auc")
+```
+\pagebreak
+
+
+# Tidying Up R Code
+
+![Before tidying](C:/Users/Vestige/Dropbox/ChemModLab/example_run/untidy.jpeg)
+
+![After tidying](C:/Users/Vestige/Dropbox/ChemModLab/example_run/tidy.jpeg)
+
+
+# Parallel Processing
+
+Taking the same approach as caret, I have taken initial steps in parallel processing. There are still a few challenges that need to be dealt with:
+
+*  The output to the console is suppressed because now processes are being run  simultaneously. A quick search suggests that writing to console will be possible
+*  The foreach command returns a list that needs to be reformatted afterwards.  There is probably a more elegant way to have foreach return the right list format.
+
+Looping over descriptor sets can be done in exactly the same way.  Will do this soon.
+
+Here is a sample of the foreach command:
+
+```{r echo=T, eval=F}
+
+ split.ls <- foreach (seed.idx = 1:nsplits, .packages = (.packages()),
+           .export = as.vector(Funcs)) %dopar% {
+             
+           }
+```
+
+```{r do parallel, echo=T, cache=TRUE}
+source("background_parallel.R")
+
+cl <- makeCluster(1)
+registerDoParallel(cl)
+
+system.time(
+bb <- ModelTrain(data, idcol=1,
+  models = c("NNet","PCR","ENet","PLS","Ridge","LARs","SVM","PLSLDA","RPart","Tree"), 
+  nfolds=10, nsplits = 3, user.params = user.params)
+)
+
+CombineSplits(bb)
+
+cl <- makeCluster(3)
+registerDoParallel(cl)
+
+system.time(
+  bb <- ModelTrain(data, idcol=1,
+                   models = c("NNet","PCR","ENet","PLS","Ridge","LARs","SVM","PLSLDA","RPart","Tree"),     
+                   nfolds=10, nsplits = 3, user.params = user.params)
+)
+
+CombineSplits(bb)
+```
+
+![Using 3 processors](C:/Users/Vestige/Dropbox/ChemModLab/example_run/parallel.jpeg)

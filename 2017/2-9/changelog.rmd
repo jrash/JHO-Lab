@@ -1,0 +1,38 @@
+---
+title: "Bug Fixes 2-9"
+author: "Jeremy Ash"
+date: "November 15, 2016"
+output: pdf_document
+---
+
+# Bug Fixes 
+
+* Fixed the crash when only one descriptor set is used
+	+ Problem with how column indices were assigned to descriptor sets - assume at least two descriptor sets
+
+* Fixed Partial Lease Squares error: "replacement has length zero" 
+	+ `ZhuGhodsi(work.meth$Yvar)` was returning 0 for the data set I was analyzing
+		- Function selected 0 for the number of components for some reason
+	+ replaced with `max(ZhuGhodsi(work.meth$Yvar), 1)` as is done in BackPLSLDA
+
+* Split-Method accumulation curves are now being plotted for each Split-Method combination
+
+* Random Forest and LAR accumulation curves are now being plotted
+	+ The names of the methods in the cml object did not match the names in the prediction output - corrected
+
+* Fixed the mislabeled class predictions for SVM and PLSLDA
+
+* Fixed problem with resetting graphical parameters
+  + This was what was causing the difficulty seeing MCS plot
+  
+
+
+# New Features
+
+* No longer plot the Split-Method accumulation curves if there is only one descritpor set
+
+* All accumulation curves now plot from 0
+
+* Require R version 3.1.1 now
+
+* Changed classify flag to T/F instead of "Y"/"N"
