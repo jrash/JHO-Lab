@@ -1,10 +1,10 @@
-# JHO_Lab
+# JHO-Lab
 
 Repository for dissertation work with Dr. Jacqueline Hughes-Oliver.
 
 ## Chemmodlab Development
 
-Work from R Journal publication included
+Work from cheminformatics publication included
 
 ## Accumulation Curve CI Analyses
 
